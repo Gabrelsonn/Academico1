@@ -3,6 +3,7 @@ using Academico.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Academico.Migrations
 {
     [DbContext(typeof(AcademicoContext))]
-    partial class AcademicoContextModelSnapshot : ModelSnapshot
+    [Migration("20251111234351_instituicao")]
+    partial class instituicao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,12 +68,6 @@ namespace Academico.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InstituicaoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("InstituicaoOrigemInstituicaoId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -80,8 +77,6 @@ namespace Academico.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartamentoId");
-
-                    b.HasIndex("InstituicaoOrigemInstituicaoId");
 
                     b.ToTable("Departamentos");
                 });
@@ -98,15 +93,6 @@ namespace Academico.Migrations
                     b.HasKey("InstituicaoId");
 
                     b.ToTable("Instituicao");
-                });
-
-            modelBuilder.Entity("Academico.Models.Departamento", b =>
-                {
-                    b.HasOne("Academico.Models.Instituicao", "InstituicaoOrigem")
-                        .WithMany()
-                        .HasForeignKey("InstituicaoOrigemInstituicaoId");
-
-                    b.Navigation("InstituicaoOrigem");
                 });
 #pragma warning restore 612, 618
         }
